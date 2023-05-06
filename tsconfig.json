@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+      "target": "es5",
+      "allowImportingTsExtensions": true,
+      "module": "commonjs",
+      "strict": true,
+      "esModuleInterop": true,
+      "outDir": "./dist",
+      "sourceMap": true
+    },
+    "include": ["./src/**/*"]
+  }
+  
