@@ -1,5 +1,6 @@
 import bcrypt from "bcrypt";
 import { user } from "../config/mongoose.ts";
+import jwtHelper from "../config/jwt.ts";
 import {
   UserInfo,
   LoginInfo,
@@ -52,25 +53,35 @@ const userHelpers = {
       if (!userExist) {
         return {
           status: false,
-          Message: "User does not exist",
+          blocked: false,
+          accessToken:null,
+          Message: "User does not exist please enter valid email",
         };
       } else if (userExist?.blocked) {
         return {
           status: false,
           blocked: true,
+          accessToken:null,
           Message: "User is blocked",
         };
       }
       const hashedPassword = userExist?.password;
       const match = await bcrypt.compare(password, hashedPassword);
       if (match) {
+        console.log(userExist)
+        const {name,email} = userExist
+        const accessToken =  jwtHelper.generateAccessToken(name,email) 
         return {
-          status: true,
+          status: true, 
+          blocked: false,
+          accessToken,
           Message: "Successfully logged in",
         };
       } else {
         return {
           status: false,
+          blocked: false,
+          accessToken:null,
           Message: "Entered wrong password",
         };
       }

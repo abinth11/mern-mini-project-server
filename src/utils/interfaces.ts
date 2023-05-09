@@ -7,6 +7,7 @@ export interface RegisterUserResponse {
 export interface LoginUserResponse {
   status: boolean;
   blocked?: boolean;
+  accessToken:string | null;
   Message: string;
 }
 

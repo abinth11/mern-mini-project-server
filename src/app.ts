@@ -2,7 +2,7 @@ import express from 'express'
 import cors from 'cors'
 const app = express();
 import {connect} from '../src/config/mongoose.ts'
-import morgan from 'morgan'
+import logger from "morgan"
 import dotenv from 'dotenv';
 dotenv.config();
 import userRouter from './routes/user.ts'
@@ -13,7 +13,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use('/',userRouter)  
 app.use('/admin',adminRouter)
-app.use(morgan('dev'));
+app.use(logger("dev"))
 
  connect()
   .then(() => {

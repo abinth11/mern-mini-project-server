@@ -1,7 +1,7 @@
 import express, { Router } from "express";
 import { Request, Response } from "express";
 import  userHelpers from "../Helpers/userHelpers.ts";
-import upload from '../config/mutler.ts';
+// import upload from '../config/mutler.ts';
 
 const router: Router = express.Router();
 
@@ -22,7 +22,7 @@ router.post("/user-register", async (req: Request, res: Response) => {
         successMessage: "Successfully registered the user",
         errorMessage: null,
         data: response,
-        error: null, 
+        error: null,  
       });
     } else {
       res.status(400).json({
@@ -46,7 +46,9 @@ router.post("/user-register", async (req: Request, res: Response) => {
 
 router.post("/user-login", async (req: Request, res: Response) => {
   try {
+    console.log(req.body)
     const response = await userHelpers.loginUser(req.body);
+    console.log(response)
     response.status
       ? res.status(200).json({
           statusCode: 200,
@@ -73,7 +75,7 @@ router.post("/user-login", async (req: Request, res: Response) => {
   }
 });
 
-router.post("/user-update-profile", upload.single("image"), async (req: Request, res: Response) => {
+router.post("/user-update-profile", async (req: Request, res: Response) => {
   try {
     console.log('aaaaaaa')
     if (req.file) {
