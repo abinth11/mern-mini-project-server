@@ -3,7 +3,7 @@ import { CustomRequest } from "../utils/interfaces";
 const jwt = require("jsonwebtoken");
 
 const jwtHelper = {
-  verifyJwt: (req: Request, res: Response, next: NextFunction): any => {
+  verifyJwt: (req: CustomRequest, res: Response, next: NextFunction): any => {
     const token = req.headers["authorization"];
     console.log(token);
   

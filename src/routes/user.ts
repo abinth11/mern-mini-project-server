@@ -2,6 +2,7 @@ import express, { RequestHandler, Router } from "express";
 import { Request, Response } from "express";
 import userHelpers from "../Helpers/userHelpers.ts";
 import jwtHelper from "../config/jwt.ts";
+import { CustomRequest } from "../utils/interfaces.ts";
 // import upload from '../config/mutler.ts';
 
 const router: Router = express.Router();
@@ -78,7 +79,7 @@ router.post("/user-login", async (req: Request, res: Response) => {
 
 
 
-router.get("/get-user-data",jwtHelper.verifyJwt, async (req: Request, res: Response) => {
+router.get("/get-user-data",jwtHelper.verifyJwt, async (req: CustomRequest, res: Response) => {
   try {
     const {email} = req.user
     const response = await userHelpers.getUserData(email)

@@ -5,11 +5,9 @@ export interface RegisterUserResponse {
   data?: any;
 }
 export interface CustomRequest extends Request {
-  user: {
-    name:string;
-    email: string;
-  };
+  user?: any;
 }
+
 export interface User {
   name: string;
   email: string;
