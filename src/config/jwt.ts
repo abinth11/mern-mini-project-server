@@ -6,7 +6,6 @@ const jwtHelper = {
   verifyJwt: (req: CustomRequest, res: Response, next: NextFunction): any => {
     const token = req.headers["authorization"];
     console.log(token);
-  
     if (token === "null") {
       return res
         .status(401)
@@ -31,7 +30,7 @@ const jwtHelper = {
       const accessToken = jwt.sign(
         { name, email },
         "access_secret_key",
-        { expiresIn: "20s" }
+        { expiresIn: "10m" }
       )
       return accessToken
     } catch (error:any) {

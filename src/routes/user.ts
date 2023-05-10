@@ -84,6 +84,7 @@ router.get("/get-user-data",jwtHelper.verifyJwt, async (req: CustomRequest, res:
     const {email} = req.user
     const response = await userHelpers.getUserData(email)
     console.log(response)
+    res.status(200).json(response)
   } catch (error) {
     console.log(error);
     res.status(500).json({
