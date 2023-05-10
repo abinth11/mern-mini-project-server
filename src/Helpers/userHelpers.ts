@@ -7,13 +7,14 @@ import {
   UpdateUserProfileInfo,
   RegisterUserResponse,
   LoginUserResponse,
+  getUserDataResponse
 } from "../utils/interfaces.ts";
 const userHelpers = {
   registerUser: async (userInfo: UserInfo): Promise<RegisterUserResponse> => {
     try {
       const { name, mobile, email, password } = userInfo;
-      const emailExist = await user.findOne({ email });
-      const phoneExist = await user.findOne({ mobile });
+      const emailExist:string = await user.findOne({ email });
+      const phoneExist:string = await user.findOne({ mobile });
       if (phoneExist) {
         return {
           status: false,
@@ -26,8 +27,8 @@ const userHelpers = {
           Message: "Email already exist please try to login",
         };
       }
-      const salt = await bcrypt.genSalt(10);
-      const hashedPassword = await bcrypt.hash(password, salt);
+      const salt:string = await bcrypt.genSalt(10);
+      const hashedPassword:string= await bcrypt.hash(password, salt);
       const data = new user({
         name,
         mobile,
@@ -71,10 +72,13 @@ const userHelpers = {
         console.log(userExist)
         const {name,email} = userExist
         const accessToken =  jwtHelper.generateAccessToken(name,email) 
+        const refreshToken =  jwtHelper.generateRefreshToken(name,email) 
+
         return {
           status: true, 
           blocked: false,
           accessToken,
+          refreshToken,
           Message: "Successfully logged in",
         };
       } else {
@@ -87,6 +91,14 @@ const userHelpers = {
       }
     } catch (error: any) {
       throw new Error(error);
+    }
+  },
+  getUserData:async(email:string):Promise <getUserDataResponse> =>{
+    try {
+      const userInfo = await user.findOne({ email }, { name: 1, email: 1,mobile:1 });
+      return userInfo
+    } catch(error:any) {
+      throw new Error(error)
     }
   },
   // updateUserProfile: async (userInfo: UpdateUserProfileInfo): Promise<void> => {

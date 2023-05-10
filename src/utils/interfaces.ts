@@ -1,13 +1,31 @@
+import { Request } from "express";
 export interface RegisterUserResponse {
   status: boolean;
   Message: string;
   data?: any;
 }
+export interface CustomRequest extends Request {
+  user: {
+    name:string;
+    email: string;
+  };
+}
+export interface User {
+  name: string;
+  email: string;
+}
+export interface getUserDataResponse {
+  name:string;
+  email:string;
+  mobile:string,
+  profilePhoto?:string
 
+}
 export interface LoginUserResponse {
   status: boolean;
   blocked?: boolean;
   accessToken:string | null;
+  refreshToken?:string | null;
   Message: string;
 }
 
