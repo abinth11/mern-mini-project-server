@@ -1,12 +1,17 @@
 import bcrypt from "bcrypt";
 import jwtHelper from "../config/jwt.ts";
-import { adminInfo, adminLoginResponse } from "../utils/interfaces.ts";
+import {
+  adminInfo,
+  adminLoginResponse,
+  userDetails,
+} from "../utils/interfaces.ts";
 import admin from "../Schemas/adminSchema.ts";
+import { user } from "../config/mongoose.ts";
 const adminHelper = {
-  login: async (adminInfo: adminInfo) => {
+  login: async (adminInfo: adminInfo): Promise<adminLoginResponse> => {
     const { username, password } = adminInfo;
     try {
-      const adminExist = await admin.findOne({username});
+      const adminExist = await admin.findOne({ username });
       if (!adminExist) {
         return {
           status: false,
@@ -32,6 +37,14 @@ const adminHelper = {
         };
       }
     } catch (error: any) {
+      throw new Error(error);
+    }
+  },
+  getUserDetails: async ():Promise<userDetails> => {
+    try {
+      const response = await user.find({}, { _id: 0, password: 0, __v: 0 });
+      return response
+    } catch (error:any) {
       throw new Error(error);
     }
   },

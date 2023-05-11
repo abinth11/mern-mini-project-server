@@ -9,11 +9,11 @@ export interface CustomRequest extends Request {
 }
 
 export interface ImageUploadResponse {
-    acknowledged: boolean,
-    modifiedCount: number,
-    upsertedId: string,
-    upsertedCount: number,
-    matchedCount: number
+  acknowledged: boolean;
+  modifiedCount: number;
+  upsertedId: string;
+  upsertedCount: number;
+  matchedCount: number;
 }
 
 export interface User {
@@ -21,17 +21,16 @@ export interface User {
   email: string;
 }
 export interface getUserDataResponse {
-  name:string;
-  email:string;
-  mobile:string,
-  photo?:string
-
+  name: string;
+  email: string;
+  mobile: string;
+  photo?: string;
 }
 export interface LoginUserResponse {
   status: boolean;
   blocked?: boolean;
-  accessToken:string | null;
-  refreshToken?:string | null;
+  accessToken: string | null;
+  refreshToken?: string | null;
   Message: string;
 }
 
@@ -57,13 +56,21 @@ export interface UpdateUserProfileInfo {
 // <=================================================>
 
 export interface adminInfo {
-  username:string;
-  password:string;
+  username: string;
+  password: string;
 }
 
 export interface adminLoginResponse {
-  status:boolean;
-  accessToken:string|null
-  message:string,
+  status: boolean;
+  accessToken: string | null;
+  message: string;
 }
 
+export interface userDetails {
+  name: string;
+  mobile: string;
+  email: string;
+  blocked: boolean;
+  createdAt: Date;
+  photo?: string;
+}
