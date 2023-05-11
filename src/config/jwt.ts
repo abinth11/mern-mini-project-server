@@ -5,7 +5,6 @@ const jwt = require("jsonwebtoken");
 const jwtHelper = {
   verifyJwt: (req: CustomRequest, res: Response, next: NextFunction): any => {
     const token = req.headers["authorization"];
-    console.log(token);
     if (token === "null") {
       return res
         .status(401)
@@ -30,7 +29,7 @@ const jwtHelper = {
       const accessToken = jwt.sign(
         { name, email },
         process.env.ACCESS_SECRET_KEY,
-        { expiresIn: "10m" }
+        { expiresIn: "20m" }
       )
       return accessToken
     } catch (error:any) {

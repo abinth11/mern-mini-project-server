@@ -8,6 +8,14 @@ export interface CustomRequest extends Request {
   user?: any;
 }
 
+export interface ImageUploadResponse {
+    acknowledged: boolean,
+    modifiedCount: number,
+    upsertedId: string,
+    upsertedCount: number,
+    matchedCount: number
+}
+
 export interface User {
   name: string;
   email: string;

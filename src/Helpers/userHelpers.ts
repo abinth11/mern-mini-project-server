@@ -7,7 +7,8 @@ import {
   UpdateUserProfileInfo,
   RegisterUserResponse,
   LoginUserResponse,
-  getUserDataResponse
+  getUserDataResponse,
+  ImageUploadResponse
 } from "../utils/interfaces.ts";
 const userHelpers = {
   registerUser: async (userInfo: UserInfo): Promise<RegisterUserResponse> => {
@@ -101,10 +102,14 @@ const userHelpers = {
       throw new Error(error)
     }
   },
-  updateUserProfile: async (email:string,photo:string): Promise<void> => {
+  updateUserProfile: async (photo:string|undefined,email:string): Promise<ImageUploadResponse> => {
     try {
-      
-      // await userExist.save();
+     const response = await user.updateOne({email},{
+        $set:{
+          photo
+        }
+      })
+      return response
     } catch (error:any) {
       throw new Error(error);
     }
