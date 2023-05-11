@@ -96,7 +96,7 @@ const userHelpers = {
   },
   getUserData:async(email:string):Promise <getUserDataResponse> =>{
     try {
-      const userInfo = await user.findOne({ email }, { name: 1, email: 1,mobile:1 });
+      const userInfo = await user.findOne({ email }, { name: 1, email: 1,mobile:1,photo:1});
       return userInfo
     } catch(error:any) {
       throw new Error(error)

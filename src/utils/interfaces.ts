@@ -24,7 +24,7 @@ export interface getUserDataResponse {
   name:string;
   email:string;
   mobile:string,
-  profilePhoto?:string
+  photo?:string
 
 }
 export interface LoginUserResponse {

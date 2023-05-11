@@ -104,7 +104,7 @@ router.put("/update-profile",jwtHelper.verifyJwt,upload, async (req: CustomReque
     if (req.file) {
       const response = await userHelpers.updateUserProfile(path,email);
       console.log(response)
-      response.modifiedCount
+      response.modifiedCount==1
       ?res.status(200).json({
         statusCode:200,
         successMessage: 'Successfully uploaded your profile picture',
