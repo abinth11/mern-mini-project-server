@@ -36,6 +36,18 @@ const jwtHelper = {
       throw new Error(error);
     }
   },
+  generateAccessTokenAdmin: (username:string) => {
+    try {
+      const accessToken = jwt.sign(
+        { username },
+        process.env.ACCESS_SECRET_KEY,
+        { expiresIn: "20m" }
+      )
+      return accessToken
+    } catch (error:any) {
+      throw new Error(error);
+    }
+  },
   generateRefreshToken:(name:string,email:string) => {
     try {
       const refreshToken = jwt.sign(

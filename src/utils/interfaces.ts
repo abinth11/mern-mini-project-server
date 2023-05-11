@@ -53,3 +53,17 @@ export interface UpdateUserProfileInfo {
   email?: string;
   password?: string;
 }
+//                       Admin
+// <=================================================>
+
+export interface adminInfo {
+  username:string;
+  password:string;
+}
+
+export interface adminLoginResponse {
+  status:boolean;
+  accessToken:string|null
+  message:string,
+}
+

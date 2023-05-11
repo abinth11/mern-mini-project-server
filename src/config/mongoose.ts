@@ -15,5 +15,3 @@ export const connect = async () => {
 }
 
 export const user = require('../Schemas/userSchema.ts').user;
-export const adminSchema = require('../Schemas/adminSchema.ts').admin;
-
