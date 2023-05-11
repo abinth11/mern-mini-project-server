@@ -12,7 +12,7 @@ const jwtHelper = {
         .json({ invalidToken: true, message: "Unauthorized" });
     }
   
-    jwt.verify(token, "access_secret_key", (err: Error | null, decoded: any) => {
+    jwt.verify(token,process.env.ACCESS_SECRET_KEY, (err: Error | null, decoded: any) => {
       if (err) {
         console.log(err);
         return res
@@ -29,7 +29,7 @@ const jwtHelper = {
     try {
       const accessToken = jwt.sign(
         { name, email },
-        "access_secret_key",
+        process.env.ACCESS_SECRET_KEY,
         { expiresIn: "10m" }
       )
       return accessToken
@@ -41,7 +41,7 @@ const jwtHelper = {
     try {
       const refreshToken = jwt.sign(
         { name, email},
-        "refresh_secret_key",
+        process.env.REFRESH_SECRET_KEY,
         { expiresIn: "60s" }
       )
       return refreshToken

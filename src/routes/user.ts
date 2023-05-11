@@ -1,9 +1,9 @@
-import express, { RequestHandler, Router } from "express";
+import express, {  Router } from "express";
 import { Request, Response } from "express";
 import userHelpers from "../Helpers/userHelpers.ts";
 import jwtHelper from "../config/jwt.ts";
 import { CustomRequest } from "../utils/interfaces.ts";
-// import upload from '../config/mutler.ts';
+import {upload} from '../config/mutler.ts';
 
 const router: Router = express.Router();
 
@@ -77,8 +77,6 @@ router.post("/user-login", async (req: Request, res: Response) => {
   }
 });
 
-
-
 router.get("/get-user-data",jwtHelper.verifyJwt, async (req: CustomRequest, res: Response) => {
   try {
     const {email} = req.user
@@ -97,36 +95,39 @@ router.get("/get-user-data",jwtHelper.verifyJwt, async (req: CustomRequest, res:
   }
 });
 
-// router.post("/user-update-profile", async (req: Request, res: Response) => {
-//   try {
-//     console.log('aaaaaaa')
-//     if (req.file) {
-//       // File uploaded successfully, proceed with updating user profile
-//       console.log("File uploaded successfully:", req.file);
-//       // call your update user profile function here
-//       // const response = await userHelpers.updateUserProfile(req.body);
-//       // console.log(response);
-//     } else {
-//       // File upload failed
-//       console.log("File upload failed");
-//       res.status(400).json({
-//         statusCode: 400,
-//         successMessage: null,
-//         errorMessage: "Failed to upload file",
-//         data: null,
-//         error: null,
-//       });
-//     }
-//   } catch (error:any) {
-//     console.log(error)
-//     res.status(500).json({
-//       statusCode: 500,
-//       successMessage: null,
-//       errorMessage: "Internal server error",
-//       data: null,
-//       error: error,
-//     });
-//   }
-// });
+router.put("/update-profile",upload, async (req: CustomRequest, res: Response) => {
+  try {
+    console.log('aaaaaaa')
+    // const {email} = req.user
+    // console.log(email)
+    console.log(req.file)
+    // if (req.file) {
+    //   // File uploaded successfully, proceed with updating user profile
+    //   console.log("File uploaded successfully:", req.file);
+    //   // call your update user profile function here
+    //   // const response = await userHelpers.updateUserProfile(req.body);
+    //   // console.log(response);
+    // } else {
+    //   // File upload failed
+    //   console.log("File upload failed");
+    //   res.status(400).json({
+    //     statusCode: 400,
+    //     successMessage: null,
+    //     errorMessage: "Failed to upload file",
+    //     data: null,
+    //     error: null,
+    //   });
+    // }
+  } catch (error:any) {
+    console.log(error)
+    res.status(500).json({
+      statusCode: 500,
+      successMessage: null,
+      errorMessage: "Internal server error",
+      data: null,
+      error: error,
+    });
+  }
+});
 
 export default router;

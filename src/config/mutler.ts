@@ -1,25 +1,38 @@
-import { v2 as cloudinary } from 'cloudinary';
-import multer from 'multer'
-import { CloudinaryStorage } from 'multer-storage-cloudinary'
+import { v2 as cloudinary, UploadApiResponse } from 'cloudinary';
+import multer from 'multer';
+import { Request, RequestHandler } from 'express';
+import { CloudinaryStorage } from 'multer-storage-cloudinary';
 
-// configure cloudinary
+interface CloudinaryStorageOptions {
+  cloudinary: any; // Adjust the type as needed for the cloudinary object
+  params: {
+    resource_type: string;
+    allowed_formats: string[];
+    public_id: (req: Request, file: Express.Multer.File) => string;
+  };
+}
+
+// Cloudinary configuration
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
-  api_key: process.env.API_KEY ,
-  api_secret:process.env.API_KEY 
+  api_key: process.env.API_KEY,
+  api_secret: process.env.API_SECRET
 });
 
-// configure multer storage to use cloudinary
-const storage = new CloudinaryStorage({
+// Multer configuration
+const storageOptions: CloudinaryStorageOptions = {
   cloudinary: cloudinary,
   params: {
-    folder: 'freshBite',
-    allowedFormats: ['jpg', 'png', 'jpeg', 'gif'],
-    transformation: [{ width: 500, height: 500, crop: 'limit' }]
+    resource_type: 'auto',
+    allowed_formats: ['jpg', 'jpeg', 'png'],
+    public_id: (req: Request, file: Express.Multer.File): string => {
+      const fileName = file.originalname.split('.').slice(0, -1).join('.');
+      return fileName;
+    }
   }
-});
+};
 
-// configure multer to use the storage configuration
-const upload = multer({ storage: storage });
+const storage = new CloudinaryStorage(storageOptions);
+const upload: RequestHandler = multer({ storage: storage }).single('image');
 
-export default upload
+export { upload };
