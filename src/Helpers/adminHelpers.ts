@@ -4,7 +4,9 @@ import {
   adminInfo,
   adminLoginResponse,
   userDetails,
-  deleteResponse
+  deleteResponse,
+  individualUser,
+  updateResponse
 } from "../utils/interfaces.ts";
 import admin from "../Schemas/adminSchema.ts";
 import { user } from "../config/mongoose.ts";
@@ -56,6 +58,36 @@ const adminHelper = {
       return response
     } catch (error:any){
       throw new Error(error)
+    }
+  },
+  getIndividualUserData:async(userId:string|undefined):Promise<individualUser> =>{
+    try {
+      const userInfo = await user.findOne({_id: new mongoose.Types.ObjectId(userId)}, { password: 0, __v: 0 })
+      return userInfo
+    } catch (error:any){
+      throw new Error(error)
+    }
+  },
+  updateUserInfo:async(userInfo:individualUser):Promise<updateResponse> =>{
+    try {
+      const {
+        _id,
+        name,
+        email,
+        blocked,
+      } = userInfo
+      console.log(userInfo)
+      const response = await user.updateOne({_id: new mongoose.Types.ObjectId(_id)},{
+        $set:{
+          name:name,
+          email:email,
+          blocked:blocked,
+        }
+      })
+      return response
+
+    } catch (error:any) {
+      throw new Error(error);
     }
   }
 };

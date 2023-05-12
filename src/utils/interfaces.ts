@@ -1,4 +1,7 @@
 import { Request } from "express";
+import { ParsedQs } from 'qs';
+import { ObjectId } from 'mongodb';
+
 export interface RegisterUserResponse {
   status: boolean;
   Message: string;
@@ -78,4 +81,25 @@ export interface userDetails {
 export interface deleteResponse {
    acknowledged: boolean;
    deletedCount: number;
+}
+export interface updateResponse {
+    acknowledged: boolean;
+    modifiedCount: number,
+    upsertedId: string,
+    upsertedCount: number,
+    matchedCount: number
+}
+
+export interface CustomQuery extends ParsedQs {
+  userId: string;
+}
+
+export interface individualUser {
+  _id:ObjectId;
+  name: string;
+  mobile: string;
+  email: string;
+  blocked: boolean;
+  createdAt:Date;
+  photo?:string;
 }
