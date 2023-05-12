@@ -74,6 +74,7 @@ router.delete(
       const response = await adminHelper.deleteUser(id);
       response
         ? res.status(200).json({
+            status:true,
             statusCode: 200,
             successMessage: "SuccessFully deleted user ",
             errorMessage: null,
@@ -81,6 +82,7 @@ router.delete(
             error: null,
           })
         : res.status(400).json({
+            status:false,
             statusCode: 400,
             successMessage: null,
             errorMessage: "Failed delete user please try again",
@@ -91,6 +93,7 @@ router.delete(
     } catch (error: any) {
       console.log(error);
       res.status(500).json({
+        status:false,
         statusCode: 500,
         successMessage: null,
         errorMessage: "Internal server error",
