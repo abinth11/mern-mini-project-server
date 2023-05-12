@@ -1,6 +1,7 @@
 import express, { Router, Request, Response } from "express";
 import { CustomQuery } from "../utils/interfaces";
 import adminHelper from "../Helpers/adminHelpers";
+import jwtHelper from "../config/jwt";
 const router: Router = express.Router();
 
 router.post("/login", async (req: Request, res: Response): Promise<void> => {
@@ -36,6 +37,7 @@ router.post("/login", async (req: Request, res: Response): Promise<void> => {
 
 router.get(
   "/get-user-details",
+  jwtHelper.verifyJwt,
   async (req: Request, res: Response): Promise<void> => {
     try {
       const response = await adminHelper.getUserDetails();
@@ -68,6 +70,7 @@ router.get(
 
 router.delete(
   "/delete-user",
+  jwtHelper.verifyJwt,
   async (req: Request, res: Response): Promise<void> => {
     try {
       console.log(req.body);
@@ -107,6 +110,7 @@ router.delete(
 
 router.get(
   "/get-individual-user-data",
+  jwtHelper.verifyJwt,
   async (
     req: Request<{}, {}, {}, CustomQuery>,
     res: Response

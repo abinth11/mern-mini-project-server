@@ -5,6 +5,7 @@ const jwt = require("jsonwebtoken");
 const jwtHelper = {
   verifyJwt: (req: CustomRequest, res: Response, next: NextFunction): any => {
     const token = req.headers["authorization"];
+    console.log(token)
     if (token === "null") {
       return res
         .status(401)
