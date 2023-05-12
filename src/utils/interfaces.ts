@@ -74,3 +74,8 @@ export interface userDetails {
   createdAt: Date;
   photo?: string;
 }
+
+export interface deleteResponse {
+   acknowledged: boolean;
+   deletedCount: number;
+}

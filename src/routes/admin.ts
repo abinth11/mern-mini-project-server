@@ -2,7 +2,7 @@ import express, { Router, Request, Response } from "express";
 import adminHelper from "../Helpers/adminHelpers";
 const router: Router = express.Router();
 
-router.post("/login", async (req: Request, res: Response) => {
+router.post("/login", async (req: Request, res: Response): Promise<void> => {
   try {
     console.log(req.body);
     const response = await adminHelper.login(req.body);
@@ -22,7 +22,7 @@ router.post("/login", async (req: Request, res: Response) => {
           error: null,
         });
     console.log(response);
-  } catch (error) {
+  } catch (error: any) {
     res.status(500).json({
       statusCode: 500,
       successMessage: null,
@@ -59,6 +59,42 @@ router.get(
         successMessage: null,
         errorMessage: "Internal server error",
         data: null,
+        error: error,
+      });
+    }
+  }
+);
+
+router.delete(
+  "/delete-user",
+  async (req: Request, res: Response): Promise<void> => {
+    try {
+      console.log(req.body);
+      const { id } = req.body;
+      const response = await adminHelper.deleteUser(id);
+      response
+        ? res.status(200).json({
+            statusCode: 200,
+            successMessage: "SuccessFully deleted user ",
+            errorMessage: null,
+            response,
+            error: null,
+          })
+        : res.status(400).json({
+            statusCode: 400,
+            successMessage: null,
+            errorMessage: "Failed delete user please try again",
+            response,
+            error: null,
+          });
+      console.log(response);
+    } catch (error: any) {
+      console.log(error);
+      res.status(500).json({
+        statusCode: 500,
+        successMessage: null,
+        errorMessage: "Internal server error",
+        response: null,
         error: error,
       });
     }

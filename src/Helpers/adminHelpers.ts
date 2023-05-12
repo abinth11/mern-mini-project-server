@@ -4,9 +4,11 @@ import {
   adminInfo,
   adminLoginResponse,
   userDetails,
+  deleteResponse
 } from "../utils/interfaces.ts";
 import admin from "../Schemas/adminSchema.ts";
 import { user } from "../config/mongoose.ts";
+import mongoose from "mongoose";
 const adminHelper = {
   login: async (adminInfo: adminInfo): Promise<adminLoginResponse> => {
     const { username, password } = adminInfo;
@@ -42,12 +44,20 @@ const adminHelper = {
   },
   getUserDetails: async ():Promise<userDetails> => {
     try {
-      const response = await user.find({}, { _id: 0, password: 0, __v: 0 });
+      const response = await user.find({}, { password: 0, __v: 0 });
       return response
     } catch (error:any) {
       throw new Error(error);
     }
   },
+  deleteUser:async(userId:string):Promise<deleteResponse> =>{
+    try {
+      const response = await user.deleteOne({_id:new mongoose.Types.ObjectId(userId)})
+      return response
+    } catch (error:any){
+      throw new Error(error)
+    }
+  }
 };
 
 export default adminHelper;
