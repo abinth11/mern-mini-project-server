@@ -1,11 +1,12 @@
 import express, {  Router } from "express";
 import { Request, Response } from "express";
-import userHelpers from "../Helpers/userHelpers.ts";
-import jwtHelper from "../config/jwt.ts";
-import { CustomRequest } from "../utils/interfaces.ts";
-import {upload} from '../config/mutler.ts';
+import userHelpers from "../Helpers/userHelpers";
+import jwtHelper from "../config/jwt";
+import { CustomRequest } from "../utils/interfaces";
+import {upload} from '../config/mutler';
 
 const router: Router = express.Router();
+
 
 router.post("/user-register", async (req: Request, res: Response) => {
   try {

@@ -1,5 +1,5 @@
 import bcrypt from "bcrypt";
-import jwtHelper from "../config/jwt.ts";
+import jwtHelper from "../config/jwt";
 import {
   adminInfo,
   adminLoginResponse,
@@ -7,9 +7,9 @@ import {
   deleteResponse,
   individualUser,
   updateResponse
-} from "../utils/interfaces.ts";
-import admin from "../Schemas/adminSchema.ts";
-import { user } from "../config/mongoose.ts";
+} from "../utils/interfaces";
+import admin from "../Schemas/adminSchema";
+import { user } from "../config/mongoose";
 import mongoose from "mongoose";
 const adminHelper = {
   login: async (adminInfo: adminInfo): Promise<adminLoginResponse> => {

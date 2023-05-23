@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
-import { user } from "../config/mongoose.ts";
-import jwtHelper from "../config/jwt.ts";
+import { user } from "../config/mongoose";
+import jwtHelper from "../config/jwt";
 import {
   UserInfo,
   LoginInfo,
@@ -9,7 +9,7 @@ import {
   LoginUserResponse,
   getUserDataResponse,
   ImageUploadResponse
-} from "../utils/interfaces.ts";
+} from "../utils/interfaces";
 const userHelpers = {
   registerUser: async (userInfo: UserInfo): Promise<RegisterUserResponse> => {
     try {
@@ -51,7 +51,7 @@ const userHelpers = {
     try {
       const userExist = await user.findOne({
         $or: [{ email: username }, { mobile: username }],
-      });
+      })
       if (!userExist) {
         return {
           status: false,
@@ -94,7 +94,7 @@ const userHelpers = {
       throw new Error(error);
     }
   },
-  getUserData:async(email:string):Promise <getUserDataResponse> =>{
+  getUserData:async(email:string): Promise <getUserDataResponse> =>{
     try {
       const userInfo = await user.findOne({ email }, { name: 1, email: 1,mobile:1,photo:1});
       return userInfo
