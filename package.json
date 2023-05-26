@@ -4,7 +4,7 @@
   "description": "backend for react app",
   "main": "/src/app.ts",
   "scripts": {
-    "test": "jest",
+    "test": "jest --watchAll",
     "start": "nodemon src/app.ts",
     "build": "tsc"
   },

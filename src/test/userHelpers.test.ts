@@ -1,7 +1,7 @@
-import userHelpers from '../src/Helpers/userHelpers';
-import { user } from '../src/config/mongoose';
+import userHelpers from '../Helpers/userHelpers';
+import { user } from '../config/mongoose';
 
-jest.mock('../src/config/mongoose', () => ({
+jest.mock('../config/mongoose', () => ({
   user: jest.fn().mockImplementation(() => ({
     save: jest.fn(),
   })),
@@ -111,7 +111,7 @@ describe('userHelpers.registerUser', () => {
       await userHelpers.registerUser(userInfo);
       // Fail the test if the function does not throw an error
       fail('Expected an error to be thrown');
-    } catch (error) {
+    } catch (error:any) {
       expect(error).toBeInstanceOf(Error);
       expect(error.message).toBe('Some error');
     }
